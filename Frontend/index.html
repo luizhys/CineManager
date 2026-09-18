@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CineManager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/estilo.css" rel="stylesheet">
+</head>
+<body>
+
+<div id="authScreen" class="auth-screen">
+  <div class="auth-box">
+    <div class="auth-brand"><span class="brand-mark">🎬</span><span class="brand-word">Cine<em>Manager</em></span></div>
+
+    <ul class="nav nav-pills auth-tabs mb-4" role="tablist">
+      <li class="nav-item"><button class="nav-link active" id="tabLoginBtn" onclick="mostrarAbaDeAutenticacao('login')" type="button">Entrar</button></li>
+      <li class="nav-item"><button class="nav-link" id="tabCadastroBtn" onclick="mostrarAbaDeAutenticacao('cadastro')" type="button">Criar conta</button></li>
+    </ul>
+
+    <form id="formLogin" class="auth-form">
+      <div class="mb-3">
+        <label class="form-label">Usuário ou e-mail</label>
+        <input id="loginLogin" class="form-control form-control-lg" required autocomplete="username">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Senha</label>
+        <input id="loginSenha" type="password" class="form-control form-control-lg" required autocomplete="current-password">
+      </div>
+      <div id="loginErro" class="alert alert-danger py-2 d-none"></div>
+      <button class="btn btn-danger btn-lg w-100" type="submit">Entrar</button>
+    </form>
+
+    <form id="formCadastro" class="auth-form d-none">
+      <div class="mb-3">
+        <label class="form-label">Nome completo</label>
+        <input id="cadNome" class="form-control form-control-lg" maxlength="150" required autocomplete="name">
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Nome de usuário</label>
+          <input id="cadUsuario" class="form-control form-control-lg" maxlength="50" required autocomplete="username">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">CPF</label>
+          <input id="cadCpf" class="form-control form-control-lg" maxlength="14" inputmode="numeric" placeholder="000.000.000-00" required>
+        </div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">E-mail</label>
+        <input id="cadEmail" type="email" class="form-control form-control-lg" maxlength="150" required autocomplete="email">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Senha</label>
+        <input id="cadSenha" type="password" class="form-control form-control-lg" minlength="6" required autocomplete="new-password">
+        <div class="form-text">Mínimo de 6 caracteres.</div>
+      </div>
+      <div id="cadastroErro" class="alert alert-danger py-2 d-none"></div>
+      <button class="btn btn-danger btn-lg w-100" type="submit">Criar conta</button>
+    </form>
+  </div>
+</div>
+
+<div id="appContent" class="d-none">
+
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+  <div class="container">
+    <a class="navbar-brand" href="#inicio"><span class="brand-mark">🎬</span><span class="brand-word">Cine<em>Manager</em></span></a>
+    <button class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+    <div id="nav" class="collapse navbar-collapse">
+      <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="#filmes">Filmes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#sessoes">Sessões</a></li>
+        <li class="nav-item"><a class="nav-link" href="#meusIngressos" onclick="carregarMeusIngressos()">Meus ingressos</a></li>
+        <li class="nav-item d-none" id="navAdminItem"><a class="nav-link" href="#admin">Administração</a></li>
+        <li class="nav-item ms-lg-3 d-flex align-items-center gap-2">
+          <span id="usuarioLogadoNome" class="navbar-text text-white-50 small mb-0"></span>
+          <button class="btn btn-outline-light btn-sm" onclick="sair()">Sair</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<header id="inicio" class="hero">
+  <div class="container hero-inner">
+    <span class="ticket-tag">🎟️ Bilheteria digital</span>
+    <h1>Seu cinema,<br>mais simples.</h1>
+    <p>Pesquise filmes, veja todos os horários, escolha seu assento e gerencie o cinema — tudo em um só lugar.</p>
+    <div class="hero-actions">
+      <a href="#filmes" class="btn btn-danger btn-lg">Ver filmes em cartaz</a>
+      <a href="#sessoes" class="btn btn-outline-light btn-lg">Próximas sessões</a>
+    </div>
+  </div>
+</header>
+
+<section id="filmes" class="container py-5">
+  <div class="section-head">
+    <div class="section-title">
+      <span class="eyebrow">Programação</span>
+      <h2>Filmes em cartaz</h2>
+    </div>
+    <div class="search">
+      <input id="search" class="form-control form-control-lg" placeholder="Buscar título ou gênero">
+    </div>
+  </div>
+  <div id="movies" class="row g-4"></div>
+  <div id="noMovies" class="empty d-none">
+    <h4>Nenhum filme encontrado</h4>
+    <p>Tente outro título ou gênero.</p>
+  </div>
+</section>
+
+<section id="sessoes" class="dark py-5">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-title">
+        <span class="eyebrow">Horários</span>
+        <h2>Próximas sessões</h2>
+      </div>
+      <select id="filterSession" class="form-select">
+        <option value="all">Todos os filmes</option>
+      </select>
+    </div>
+    <div id="sessions" class="row g-4"></div>
+    <div id="noSessions" class="empty d-none"><h4>Nenhuma sessão encontrada</h4></div>
+  </div>
+</section>
+
+<section id="meusIngressos" class="container py-5">
+  <div class="section-head">
+    <div class="section-title">
+      <span class="eyebrow">Minha conta</span>
+      <h2>Meus ingressos</h2>
+    </div>
+  </div>
+  <div id="myTickets"><p class="text-muted">Carregando seus ingressos...</p></div>
+  <div id="noMyTickets" class="empty d-none">
+    <h4>Você ainda não comprou nenhum ingresso</h4>
+    <p>Escolha um filme em cartaz e garanta seu assento.</p>
+  </div>
+</section>
+
+<section id="admin" class="admin py-5 d-none">
+  <div class="container">
+    <div class="text-center admin-intro mb-4">
+      <span class="eyebrow">Controle</span>
+      <h2>Administração</h2>
+      <p class="text-muted">Gerencie filmes, salas, sessões e ingressos direto no banco de dados.</p>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3"><button class="admin-card" onclick="openAdmin('films')"><span class="admin-icon">🎬</span><h4>Filmes</h4><p class="text-muted">Cadastrar, editar, ativar e excluir.</p><span class="btn btn-outline-danger">Gerenciar</span></button></div>
+      <div class="col-md-6 col-lg-3"><button class="admin-card" onclick="openAdmin('rooms')"><span class="admin-icon">🏢</span><h4>Salas</h4><p class="text-muted">Cadastrar capacidade e editar salas.</p><span class="btn btn-outline-danger">Gerenciar</span></button></div>
+      <div class="col-md-6 col-lg-3"><button class="admin-card" onclick="openAdmin('sessions')"><span class="admin-icon">🕒</span><h4>Sessões</h4><p class="text-muted">Criar, editar e excluir horários.</p><span class="btn btn-outline-danger">Gerenciar</span></button></div>
+      <div class="col-md-6 col-lg-3"><button class="admin-card" onclick="openAdmin('tickets')"><span class="admin-icon">🎟️</span><h4>Ingressos</h4><p class="text-muted">Consultar e cancelar vendas.</p><span class="btn btn-outline-danger">Gerenciar</span></button></div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-black text-white text-center py-5">
+  <h4>CineManager</h4>
+  <p class="text-white-50 mb-0">Sistema acadêmico de gerenciamento de cinema</p>
+</footer>
+
+<div class="modal fade" id="buyModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 id="buyTitle" class="modal-title">Comprar ingresso</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div id="buySummary" class="alert alert-light"></div><div class="screen">TELA</div><div id="seats" class="seats"></div><div class="seat-legend text-center small mt-3"><span><i class="dot"></i>Livre</span><span><i class="dot dot-selected"></i>Selecionado</span><span><i class="dot dot-busy"></i>Ocupado</span></div><p class="text-center small text-muted mb-0">Clique em quantos assentos quiser: cada um vira um ingresso independente, com seu próprio tipo.</p><hr>
+  <div id="selectedSeatsEmpty" class="text-center text-muted small">Nenhum assento selecionado ainda.</div>
+  <div id="selectedSeatsList" class="d-flex flex-column gap-2 mb-3"></div>
+  <form id="buyForm" class="row g-3">
+  <div class="col-md-6"><label class="form-label">Nome *</label><input id="clientName" class="form-control" maxlength="100" required></div><div class="col-md-6"><label class="form-label">CPF *</label><input id="clientCpf" class="form-control" maxlength="14" inputmode="numeric" required></div><div class="col-12"><label class="form-label">E-mail *</label><input id="clientEmail" type="email" class="form-control" maxlength="150" required></div></form></div><div class="modal-footer"><strong class="me-auto">Total (<span id="buyCount">0</span> ingresso(s)): <span id="buyPrice">R$ 0,00</span></strong><button class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button><button id="finishBuy" class="btn btn-danger">Confirmar compra</button></div></div></div></div>
+
+<!-- Modelo (template) de uma linha do carrinho de assentos; clonado em JS para cada assento selecionado. -->
+<template id="selectedSeatRowTemplate">
+  <div class="selected-seat-row border rounded p-2 d-flex flex-wrap align-items-center gap-2">
+    <span class="badge bg-danger seat-row-number"></span>
+    <select class="form-select form-select-sm seat-row-type" style="max-width:180px">
+      <option value="Inteira">Inteira — R$ 50,00</option>
+      <option value="Meia">Meia-entrada — R$ 25,00</option>
+    </select>
+    <select class="form-select form-select-sm seat-row-document d-none" style="max-width:260px">
+      <option value="">Documento comprobatório...</option>
+      <option value="Carteirinha estudantil">Carteirinha estudantil</option>
+      <option value="Documento de identificação de idoso">Documento de identificação de idoso</option>
+    </select>
+    <button type="button" class="btn btn-sm btn-outline-secondary ms-auto seat-row-remove">Remover</button>
+  </div>
+</template>
+
+<div class="modal fade" id="adminModal" tabindex="-1"><div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Painel administrativo</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="admin-tabs mb-4"><button data-a="films">🎬 Filmes</button><button data-a="rooms">🏢 Salas</button><button data-a="sessions">🕒 Sessões</button><button data-a="tickets">🎟️ Ingressos</button></div><div id="adminContent"></div></div></div></div></div>
+<div class="toast-container position-fixed bottom-0 end-0 p-3"><div id="toast" class="toast"><div class="toast-header"><b class="me-auto">CineManager</b><button class="btn-close" data-bs-dismiss="toast"></button></div><div id="toastText" class="toast-body"></div></div></div>
+
+</div><!-- /#appContent -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/app.js"></script>
+</body></html>

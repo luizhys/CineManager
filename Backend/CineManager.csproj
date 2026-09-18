@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Aplicacao de console: abre um servidor HTTP proprio, sem framework web. -->
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <RootNamespace>CineManager</RootNamespace>
+    <AssemblyName>CineManager</AssemblyName>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!--
+      Microsoft.Data.SqlClient e o DRIVER oficial de conexao com o
+      SQL Server (ADO.NET). Nao e um ORM nem um framework: ele apenas
+      abre a conexao e executa o SQL que nos escrevemos a mao.
+    -->
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- A connection string fica em um .txt para ser facil de alterar. -->
+    <None Update="ConnectionString.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,35 @@
+Server=(localdb)\MSSQLLocalDB;Initial Catalog=CineManager;Integrated Security=True;Encrypt=True;
+
+# ============================================================
+# COMO CONFIGURAR A CONEXAO COM O SQL SERVER
+# ============================================================
+# A PRIMEIRA linha deste arquivo (que nao seja comentario) e a
+# connection string usada pelo sistema. Altere apenas ela.
+# Linhas que comecam com # sao ignoradas pelo programa.
+#
+# Descubra o nome da sua instancia abrindo o SSMS: o texto da
+# caixa "Server name" na tela de login e exatamente o que deve
+# ir depois de "Server=".
+#
+# Exemplos prontos (copie um deles para a primeira linha):
+#
+# SQL Server Express (instalacao mais comum):
+# Server=localhost\SQLEXPRESS;Database=CineManager;Trusted_Connection=True;TrustServerCertificate=True;
+#
+# Instancia padrao (SQL Server Developer/Standard):
+# Server=localhost;Database=CineManager;Trusted_Connection=True;TrustServerCertificate=True;
+#
+# LocalDB (vem junto com o Visual Studio):
+# Server=(localdb)\MSSQLLocalDB;Database=CineManager;Trusted_Connection=True;TrustServerCertificate=True;
+#
+# Usando o nome do computador:
+# Server=NOME-DO-PC\SQLEXPRESS;Database=CineManager;Trusted_Connection=True;TrustServerCertificate=True;
+#
+# Com usuario e senha do SQL Server (autenticacao SQL):
+# Server=localhost\SQLEXPRESS;Database=CineManager;User Id=sa;Password=SuaSenha;TrustServerCertificate=True;
+#
+# ------------------------------------------------------------
+# Trusted_Connection=True    -> entra com o usuario do Windows
+# TrustServerCertificate=True-> aceita o certificado local, evita
+#                               o erro de "certificate chain"
+# ============================================================

@@ -1,0 +1,303 @@
+/* ============================================================
+   CineManager — folha de estilos
+   Identidade: cinema de rua à noite — marquise, ingresso
+   perfurado, bobina de filme. Paleta escura com acentos em
+   carmim (área pública) e dourado (área administrativa).
+   ============================================================ */
+
+:root{
+  /* cores */
+  --ink:#120D10;
+  --curtain:#1B1116;
+  --curtain-2:#241318;
+  --crimson:#C31E37;
+  --crimson-dark:#8F1226;
+  --gold:#E7B24B;
+  --gold-dark:#B98A2C;
+  --paper:#F7F1E4;
+  --paper-2:#FFFCF5;
+  --ink-on-paper:#2A2024;
+  --muted-on-paper:#7C6F72;
+  --text-on-dark:#F3ECE7;
+  --muted-on-dark:#B9A9AE;
+
+  /* tipografia */
+  --font-display:'Fraunces',Georgia,'Iowan Old Style',serif;
+  --font-body:'Work Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+
+  /* forma */
+  --radius-lg:22px;
+  --radius-md:14px;
+  --radius-sm:9px;
+  --shadow-card:0 18px 40px -14px rgba(18,13,16,.4);
+}
+
+*{box-sizing:border-box}
+
+body{
+  background:var(--ink);
+  color:var(--ink-on-paper);
+  font-family:var(--font-body);
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3,h4,h5{font-family:var(--font-display);letter-spacing:-.01em}
+
+a{color:var(--crimson)}
+
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;transition-duration:.001ms!important}
+}
+
+/* ------------------------------------------------------------
+   Navegação
+   ------------------------------------------------------------ */
+.navbar{
+  background:rgba(18,13,16,.72);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+  padding:14px 0;
+}
+.navbar-brand{display:flex;align-items:center;gap:10px}
+.brand-mark{font-size:1.4rem}
+.brand-word{font-family:var(--font-display);font-weight:700;font-size:1.25rem;color:#fff}
+.brand-word em{color:var(--crimson);font-style:normal}
+.navbar .nav-link{
+  position:relative;color:var(--muted-on-dark)!important;font-weight:500;margin:0 4px;
+  transition:color .15s ease;
+}
+.navbar .nav-link::after{
+  content:"";position:absolute;left:0;right:0;bottom:2px;height:2px;background:var(--crimson);
+  transform:scaleX(0);transform-origin:right;transition:transform .2s ease;
+}
+.navbar .nav-link:hover{color:#fff!important}
+.navbar .nav-link:hover::after{transform:scaleX(1);transform-origin:left}
+
+/* ------------------------------------------------------------
+   Hero
+   ------------------------------------------------------------ */
+.hero{
+  min-height:600px;padding-top:120px;padding-bottom:70px;
+  display:flex;align-items:center;color:#fff;position:relative;overflow:hidden;
+  background:
+    radial-gradient(ellipse 700px 420px at 78% 20%,rgba(195,30,55,.35),transparent 60%),
+    radial-gradient(ellipse 500px 500px at 10% 90%,rgba(231,178,75,.12),transparent 60%),
+    linear-gradient(160deg,#0C090B,#1B1116 55%,#241318);
+}
+.hero::after{
+  /* leve textura de granulado, como projeção de filme */
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:3px 3px;
+}
+.hero-inner{position:relative;z-index:1;animation:heroRise .7s ease both}
+@keyframes heroRise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+.ticket-tag{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--font-body);font-weight:600;font-size:.85rem;color:var(--gold);
+  background:rgba(231,178,75,.1);border:1px solid rgba(231,178,75,.35);
+  padding:7px 14px;border-radius:999px;margin-bottom:22px;
+}
+.hero h1{
+  font-size:clamp(2.8rem,6.4vw,5rem);font-weight:600;line-height:.98;margin-bottom:20px;
+}
+.hero p{max-width:600px;font-size:1.15rem;color:var(--muted-on-dark);margin-bottom:32px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap}
+
+/* ------------------------------------------------------------
+   Botões (reforço sobre o Bootstrap padrão)
+   ------------------------------------------------------------ */
+.btn{border-radius:999px;font-weight:600;padding-left:22px;padding-right:22px}
+.btn-danger{background:var(--crimson);border-color:var(--crimson)}
+.btn-danger:hover,.btn-danger:focus{background:var(--crimson-dark);border-color:var(--crimson-dark)}
+.btn-outline-danger{color:var(--crimson);border-color:var(--crimson)}
+.btn-outline-danger:hover{background:var(--crimson);border-color:var(--crimson)}
+.btn-outline-light{border-color:rgba(255,255,255,.5)}
+.btn-outline-light:hover{background:#fff;color:var(--ink)}
+.btn-secondary{background:transparent;border-color:#c9bcc0;color:var(--muted-on-paper);border-radius:999px}
+
+/* ------------------------------------------------------------
+   Cabeçalhos de seção
+   ------------------------------------------------------------ */
+.section-head{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:34px;flex-wrap:wrap}
+.section-title .eyebrow{
+  display:block;font-family:var(--font-body);font-weight:600;font-size:.9rem;color:var(--crimson);margin-bottom:4px;
+}
+.dark .section-title .eyebrow,.admin-intro .eyebrow{color:var(--gold)}
+.section-title h2,.admin-intro h2{font-size:clamp(1.7rem,3vw,2.3rem);font-weight:600;color:var(--ink-on-paper)}
+.dark .section-title h2,.admin-intro h2{color:var(--text-on-dark)}
+.admin-intro p{max-width:520px;margin:8px auto 0}
+
+.search{max-width:360px;width:100%;position:relative}
+.search::before{content:"🔎";position:absolute;left:18px;top:50%;transform:translateY(-50%);opacity:.55;font-size:.95rem}
+.search .form-control{padding-left:42px}
+
+/* ------------------------------------------------------------
+   Cartões de filme
+   ------------------------------------------------------------ */
+.movie-card{
+  background:var(--paper);border-radius:var(--radius-lg);overflow:hidden;height:100%;
+  box-shadow:var(--shadow-card);transition:transform .2s ease,box-shadow .2s ease;
+}
+.movie-card:hover{transform:translateY(-6px);box-shadow:0 26px 50px -16px rgba(18,13,16,.45)}
+.poster{
+  height:250px;display:flex;align-items:center;justify-content:center;font-size:70px;
+  color:#fff;position:relative;overflow:hidden;
+}
+.poster span{filter:drop-shadow(0 6px 14px rgba(0,0,0,.3))}
+.poster::after{
+  /* perfuração de bobina de filme na base do pôster */
+  content:"";position:absolute;left:0;right:0;bottom:0;height:11px;
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.4) 0 6px,transparent 6px 15px);
+  background-position:5px center;
+}
+.p1{background:linear-gradient(135deg,#111827,#374151)}
+.p2{background:linear-gradient(135deg,#172554,#2563eb)}
+.p3{background:linear-gradient(135deg,#451a03,#ea580c)}
+.p4{background:linear-gradient(135deg,#312e81,#7c3aed)}
+.rating{
+  position:absolute;right:14px;top:14px;background:var(--gold);color:#241605;
+  padding:6px 10px;border-radius:7px;font-weight:800;font-size:.85rem;
+}
+.movie-body{padding:24px}
+.movie-body h3{font-weight:700;font-size:1.3rem;margin:4px 0 8px}
+.movie-body p{color:var(--muted-on-paper);min-height:45px;font-size:.95rem;line-height:1.5}
+.movie-body .btn{width:100%;margin-top:8px}
+
+.empty{text-align:center;padding:60px 20px;color:var(--muted-on-paper)}
+.dark .empty{color:var(--muted-on-dark)}
+
+/* ------------------------------------------------------------
+   Seção escura / sessões (estilo canhoto de ingresso)
+   ------------------------------------------------------------ */
+.dark{background:var(--curtain);color:var(--text-on-dark)}
+
+.session-card{
+  background:var(--curtain-2);color:var(--text-on-dark);border:1px solid rgba(255,255,255,.06);
+  border-radius:var(--radius-md);padding:20px;height:100%;display:flex;position:relative;overflow:visible;
+}
+.session-card > .datebox{
+  min-width:70px;width:70px;height:70px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:transparent;color:var(--gold);border-right:2px dashed rgba(255,255,255,.18);
+  margin-right:18px;flex-shrink:0;
+}
+.session-card > .datebox b{font-family:var(--font-display);font-size:1.7rem;line-height:1}
+.session-card > .datebox span{font-size:.75rem;letter-spacing:1px;color:var(--muted-on-dark)}
+.session-card::before,.session-card::after{
+  content:"";position:absolute;left:78px;width:16px;height:16px;border-radius:50%;
+  background:var(--curtain);z-index:2;
+}
+.session-card::before{top:-9px}
+.session-card::after{bottom:-9px}
+.session-card h5{font-weight:700;margin-bottom:4px}
+.session-card .text-white-50{color:var(--muted-on-dark)!important;font-size:.9rem}
+.session-card .time{
+  border:1px solid rgba(255,255,255,.35);background:transparent;color:#fff;border-radius:999px;
+  padding:8px 16px;margin-top:10px;font-weight:600;transition:.15s ease;
+}
+.session-card .time:hover{background:var(--crimson);border-color:var(--crimson)}
+
+.form-select{border-radius:999px}
+
+/* ------------------------------------------------------------
+   Administração
+   ------------------------------------------------------------ */
+.admin{background:#EFE9DC}
+.admin-card{
+  border:0;background:var(--paper-2);text-align:left;padding:28px;width:100%;border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-card);transition:transform .2s ease;
+}
+.admin-card:hover{transform:translateY(-5px)}
+.admin-icon{font-size:38px;display:block;margin-bottom:10px}
+.admin-card h4{font-weight:700;margin-bottom:6px}
+.admin-card .btn{margin-top:14px}
+
+.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;border-bottom:1px solid #e7ddd0;padding-bottom:14px}
+.admin-tabs button{
+  border:0;background:#F1EAE0;color:var(--ink-on-paper);padding:9px 16px;border-radius:999px;
+  font-weight:600;font-size:.92rem;transition:.15s ease;
+}
+.admin-tabs button.active{background:var(--gold);color:#241605}
+
+#adminContent .table{margin-top:18px}
+#adminContent .table th{
+  font-family:var(--font-body);font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;
+  color:var(--muted-on-paper);border-bottom-width:1px;
+}
+#adminContent .table td{vertical-align:middle}
+#adminContent .btn-link{color:var(--crimson);text-decoration:none;font-weight:600}
+#adminContent form label{font-weight:600;font-size:.9rem;margin-bottom:4px}
+
+/* usados tanto no painel administrativo quanto na consulta de ingresso por CPF */
+.badge{border-radius:999px;font-weight:600;padding:6px 11px}
+.bg-success{background-color:#3F7A4C!important}
+.bg-secondary{background-color:#8B7F82!important}
+
+/* ------------------------------------------------------------
+   Modais, tela e assentos
+   ------------------------------------------------------------ */
+.modal-content{border-radius:var(--radius-lg);border:0}
+.modal-header,.modal-footer{border-color:#efe8db}
+
+.screen{
+  max-width:420px;margin:0 auto 26px;padding:9px;text-align:center;color:#8a8078;
+  font-size:.75rem;font-weight:700;letter-spacing:3px;
+  background:linear-gradient(180deg,#e5ddcf,#f4efe5);
+  border-radius:50%/100%;box-shadow:0 10px 18px -12px rgba(0,0,0,.4);
+}
+.seats{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;max-width:480px;margin:auto}
+.seat{
+  border:0;border-radius:8px 8px 4px 4px;height:36px;background:#e3dccf;color:transparent;
+  font-size:.7rem;transition:.15s ease;
+}
+.seat:not(:disabled):hover{background:#d7c9ae}
+.seat.selected{background:var(--crimson);box-shadow:0 0 0 3px rgba(195,30,55,.25)}
+.seat.busy{background:repeating-linear-gradient(45deg,#8f8478,#8f8478 4px,#847a6e 4px,#847a6e 8px);cursor:not-allowed}
+
+.seat-legend{display:flex;justify-content:center;gap:20px;color:var(--muted-on-paper);flex-wrap:wrap}
+.seat-legend span{display:inline-flex;align-items:center;gap:6px}
+.dot{width:11px;height:11px;border-radius:3px;background:#e3dccf;display:inline-block}
+.dot-selected{background:var(--crimson)}
+.dot-busy{background:#8f8478}
+
+.toast{border-radius:var(--radius-md);border:0;box-shadow:var(--shadow-card)}
+.toast-header{border-radius:var(--radius-md) var(--radius-md) 0 0}
+
+footer h4{font-family:var(--font-display);font-weight:600}
+
+/* ------------------------------------------------------------
+   Responsivo
+   ------------------------------------------------------------ */
+@media (max-width:700px){
+  .section-head{display:block}
+  .search{margin-top:16px;max-width:100%}
+  .seats{grid-template-columns:repeat(5,1fr)}
+  .hero{padding-top:110px;min-height:auto}
+}
+
+/* ------------------------------------------------------------
+   Tela de Login / Cadastro
+   ------------------------------------------------------------ */
+.auth-screen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px;
+  background:radial-gradient(circle at top,#241418,#0c0708 70%);
+}
+.auth-box{
+  width:100%;max-width:460px;background:#fff;border-radius:var(--radius-md);
+  box-shadow:var(--shadow-card);padding:40px 36px;
+}
+.auth-brand{display:flex;align-items:center;gap:10px;justify-content:center;margin-bottom:28px}
+.auth-brand .brand-word{color:#161014}
+.auth-brand .brand-word em{color:var(--crimson);font-style:normal}
+.auth-tabs{justify-content:center;gap:8px}
+.auth-tabs .nav-link{border-radius:999px;color:var(--muted-on-paper);font-weight:600;padding:8px 20px}
+.auth-tabs .nav-link.active{background:var(--crimson);color:#fff}
+.auth-form .form-label{font-weight:600;font-size:.9rem}
+
+@media (max-width:480px){
+  .auth-box{padding:28px 22px}
+}
