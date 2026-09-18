@@ -8,14 +8,13 @@ Aplicação completa em **C# + ADO.NET + Microsoft SQL Server**, com front-end e
 
 ## 👥 Integrantes
 
-| Nome | RA |
-|------|----|
-|      |    |
-|      |    |
-|      |    |
-|      |    |
-|      |    |
-|      |    |
+|Nome                                |RA     |
+|LUCAS SOUZA OLIVEIRA                |R845BJ3|
+|LUIZ HENRIQUE YAMAGUCHI SODRÉ       |F3603A3|
+|NYEDSON PHELIPE MORAES MELO         |R830349|
+|IGOR BATALHA BRANCO                 |F363DE2|
+|HENRY AUGUSTO SILVA DE SOUZA        |H4186E3|
+
 
 ---
 
